@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clean Dark Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-color: #1f1f1f;
+      --bg-elevated: #2a2a2a;
+      --text-color: #f5f5f5;
+      --accent: #4f8cff;
+      --accent-soft: rgba(79, 140, 255, 0.12);
+      --muted: #b0b0b0;
+      --border-radius: 999px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #2b2b2b 0, #151515 55%, #0e0e0e 100%);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 12px;
+      background: conic-gradient(
+        from 140deg,
+        #4f8cff,
+        #9f6bff,
+        #ff6f91,
+        #ffc857,
+        #4f8cff
+      );
+      padding: 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: #101010;
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      background: rgba(32, 32, 32, 0.8);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-button {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: var(--border-radius);
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-button span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: transparent;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav-button:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-color);
+      transform: translateY(-0.5px);
+    }
+
+    .nav-button.active {
+      background: var(--accent-soft);
+      color: var(--text-color);
+    }
+
+    .nav-button.active span.dot {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #323232 0, #202020 50%, #181818 100%);
+      border-radius: 20px;
+      padding: 20px 20px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(79, 140, 255, 0.8);
+      margin-right: 5px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 2.8rem);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn var(--transition-med);
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    .chip strong {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+      transition: border var(--transition-fast), background var(--transition-fast),
+        transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    .pill-link:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--text-color);
+      transform: translateY(-0.5px);
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 8px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer span {
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding-inline: 16px;
+      }
+
+      header {
+        gap: 12px;
+      }
+
+      .brand {
+        font-size: 0.8rem;
+      }
+
+      nav {
+        margin-left: auto;
+      }
+
+      .card {
+        padding: 18px 16px 22px;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <span class="brand-mark">
+          <span class="brand-mark-inner"></span>
+        </span>
+        <span>My Clean Site</span>
+      </div>
+
+      <!-- Toolbar top-right -->
+      <nav aria-label="Main">
+        <button class="nav-button active" data-section="home">
+          <span class="dot"></span>
+          Home
+        </button>
+        <button class="nav-button" data-section="apps">
+          <span class="dot"></span>
+          Apps
+        </button>
+        <button class="nav-button" data-section="about">
+          <span class="dot"></span>
+          About
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card">
+        <!-- HOME -->
+        <section id="home" class="section active" aria-label="Home">
+          <div class="card-header">
+            <div class="pill-label">
+              <span class="status-dot"></span>
+              Home
+            </div>
+          </div>
+          <h1>Hello there 👋</h1>
+          <p class="subtitle">
+            Welcome to this clean, dark website. This is the home page –
+            a simple starting point where you can say hello, show a short intro,
+            or briefly explain what this site is about.
+          </p>
+          <div class="chips">
+            <div class="chip"><strong>Tip:</strong> Edit this text to make it yours.</div>
+            <div class="chip">Dark background • Minimal UI</div>
+          </div>
+        </section>
+
+        <!-- APPS -->
+        <section id="apps" class="section" aria-label="Apps">
+          <div class="card-header">
+            <div class="pill-label">
+              <span class="status-dot"></span>
+              Apps
+            </div>
+          </div>
+          <h1>Apps</h1>
+          <p class="subtitle">
+            This section is ready for whatever you want to list here:
+            tools, projects, or links to your applications.
+          </p>
+          <div class="section-title">Examples</div>
+          <div class="link-row">
+            <a class="pill-link" href="#" onclick="return false;">Sample App 1</a>
+            <a class="pill-link" href="#" onclick="return false;">Sample App 2</a>
+            <a class="pill-link" href="#" onclick="return false;">Sample App 3</a>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="section" aria-label="About">
+          <div class="card-header">
+            <div class="pill-label">
+              <span class="status-dot"></span>
+              About
+            </div>
+          </div>
+          <h1>About</h1>
+          <p class="subtitle">
+            Use this space to describe yourself, your project, or the purpose
+            of the website. Keep it short and friendly, or turn it into a full
+            “About” page – your choice.
+          </p>
+          <div class="chips">
+            <div class="chip"><strong>You:</strong> Add your story here.</div>
+            <div class="chip">Contact info • Background • Goals</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="year"></span> My Clean Site</span>
+      <span>Built with a simple HTML + CSS layout.</span>
+    </footer>
+  </div>
+
+  <script>
+    // Navigation logic: switch visible section & active button
+    const navButtons = document.querySelectorAll(".nav-button");
+    const sections = document.querySelectorAll(".section");
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+
+        // Update active nav button
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Show matching section
+        sections.forEach((section) => {
+          if (section.id === target) {
+            section.classList.add("active");
+          } else {
+            section.classList.remove("active");
+          }
+        });
+      });
+    });
+
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
