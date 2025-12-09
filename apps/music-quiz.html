@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Quiz · Launchpad</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <span class="brand-mark">
+          <span class="brand-mark-inner"></span>
+        </span>
+        <span>Music Quiz</span>
+      </div>
+      <nav aria-label="Main">
+        <a class="nav-button" href="../index.html">
+          <span class="dot"></span>
+          Back to Launchpad
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card">
+        <section class="section active" aria-label="Music Quiz">
+          <div class="card-header">
+            <div class="pill-label">
+              <span class="status-dot"></span>
+              Lobby & Settings
+            </div>
+          </div>
+          <h1>Music Quiz</h1>
+          <p class="subtitle">
+            Kahoot-style rounds using Spotify previews. Create or join a lobby, set your rules,
+            and play short clips (10s) to guess title/artist.
+          </p>
+
+          <div class="chips" style="margin-top:0;">
+            <div class="chip"><strong>Goal:</strong> 10s clip → guess artist/title</div>
+            <div class="chip">Multiplayer lobby • Join via code</div>
+            <div class="chip">Scoring + round summary</div>
+          </div>
+
+          <div class="quiz-grid">
+            <div class="quiz-col">
+              <label class="section-title" style="margin-bottom:4px;">Lobby</label>
+              <div class="input-stack">
+                <input id="lobby-code" type="text" placeholder="Enter lobby code" class="text-input" />
+                <div class="button-row">
+                  <button class="nav-button" id="create-lobby">Create lobby</button>
+                  <button class="nav-button" id="join-lobby">Join</button>
+                </div>
+                <div class="hint">Codes will be generated server-side; placeholder only.</div>
+              </div>
+            </div>
+            <div class="quiz-col">
+              <label class="section-title" style="margin-bottom:4px;">Settings</label>
+              <div class="input-grid">
+                <div class="input-field">
+                  <span class="label">Answer mode</span>
+                  <select id="answer-mode">
+                    <option value="multiple">Multiple choice</option>
+                    <option value="input">Type the answer</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                  <span class="label">Guess</span>
+                  <select id="guess-scope">
+                    <option value="title">Title</option>
+                    <option value="artist">Artist</option>
+                    <option value="both">Both (title + artist)</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                  <span class="label">Songs per round</span>
+                  <select id="song-count">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                  <span class="label">Genre / list</span>
+                  <select id="genre">
+                    <option value="top-hits">Top hits</option>
+                    <option value="pop">Pop</option>
+                    <option value="hiphop">Hip-hop</option>
+                    <option value="edm">EDM</option>
+                    <option value="rock">Rock</option>
+                    <option value="custom">Custom playlist ID</option>
+                  </select>
+                </div>
+                <div class="input-field" id="custom-playlist-wrapper" style="display:none;">
+                  <span class="label">Spotify playlist ID</span>
+                  <input type="text" id="custom-playlist" placeholder="37i9dQZF1DXcBWIGoYBM5M" class="text-input" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="nav-button active" id="start-quiz">Start round</button>
+            <span class="hint">Playback + scoring will wire to Spotify API in the next step.</span>
+          </div>
+
+          <div class="quiz-summary" id="quiz-summary">
+            <div class="section-title" style="margin-bottom:4px;">Round summary</div>
+            <div class="hint">Totals and standings will appear here after each round.</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="year"></span> Launchpad</span>
+      <span>Built for desktop and mobile.</span>
+    </footer>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/quiz.js"></script>
+</body>
+</html>
+
